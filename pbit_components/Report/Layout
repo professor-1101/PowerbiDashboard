@@ -1,0 +1,79 @@
+{
+  "id": 0,
+  "resourcePackages": [
+    {
+      "resourcePackage": {
+        "name": "SharedResources",
+        "items": []
+      }
+    }
+  ],
+  "config": "{\"version\":\"5.45\",\"themeCollection\":{\"baseTheme\":{\"name\":\"CY24SU09\"}}}",
+  "layoutOptimization": 0,
+  "sections": [
+    {
+      "id": 0,
+      "displayName": "Bug Tracking Dashboard",
+      "displayOption": 1,
+      "height": 720,
+      "width": 1280,
+      "visualContainers": [
+        {
+          "id": 1,
+          "x": 10,
+          "y": 60,
+          "width": 300,
+          "height": 200,
+          "z": 1000,
+          "config": "{\"name\":\"bug-status-pie\",\"layouts\":[{\"id\":0,\"position\":{\"x\":10,\"y\":60,\"z\":1000,\"width\":300,\"height\":200}}],\"singleVisual\":{\"visualType\":\"pieChart\",\"projections\":{\"Category\":[{\"queryRef\":\"raw_data.State\"}],\"Values\":[{\"queryRef\":\"Sum(raw_data.BugID)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"r\",\"Entity\":\"raw_data\"}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"r\"}},\"Property\":\"State\"},\"Name\":\"raw_data.State\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"r\"}},\"Property\":\"BugID\"}},\"Function\":3},\"Name\":\"Sum(raw_data.BugID)\"}]}}}"
+        },
+        {
+          "id": 2,
+          "x": 320,
+          "y": 60,
+          "width": 300,
+          "height": 200,
+          "z": 1001,
+          "config": "{\"name\":\"severity-pie\",\"layouts\":[{\"id\":0,\"position\":{\"x\":320,\"y\":60,\"z\":1001,\"width\":300,\"height\":200}}],\"singleVisual\":{\"visualType\":\"pieChart\",\"projections\":{\"Category\":[{\"queryRef\":\"raw_data.Severity\"}],\"Values\":[{\"queryRef\":\"Sum(raw_data.BugID)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"r\",\"Entity\":\"raw_data\"}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"r\"}},\"Property\":\"Severity\"},\"Name\":\"raw_data.Severity\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"r\"}},\"Property\":\"BugID\"}},\"Function\":3},\"Name\":\"Sum(raw_data.BugID)\"}]}}}"
+        },
+        {
+          "id": 3,
+          "x": 630,
+          "y": 60,
+          "width": 300,
+          "height": 200,
+          "z": 1002,
+          "config": "{\"name\":\"priority-bar\",\"layouts\":[{\"id\":0,\"position\":{\"x\":630,\"y\":60,\"z\":1002,\"width\":300,\"height\":200}}],\"singleVisual\":{\"visualType\":\"barChart\",\"projections\":{\"Category\":[{\"queryRef\":\"raw_data.Priority\"}],\"Values\":[{\"queryRef\":\"Sum(raw_data.BugID)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"r\",\"Entity\":\"raw_data\"}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"r\"}},\"Property\":\"Priority\"},\"Name\":\"raw_data.Priority\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"r\"}},\"Property\":\"BugID\"}},\"Function\":3},\"Name\":\"Sum(raw_data.BugID)\"}]}}}"
+        },
+        {
+          "id": 4,
+          "x": 10,
+          "y": 270,
+          "width": 450,
+          "height": 200,
+          "z": 1003,
+          "config": "{\"name\":\"team-bar\",\"layouts\":[{\"id\":0,\"position\":{\"x\":10,\"y\":270,\"z\":1003,\"width\":450,\"height\":200}}],\"singleVisual\":{\"visualType\":\"barChart\",\"projections\":{\"Category\":[{\"queryRef\":\"raw_data.TeamName\"}],\"Values\":[{\"queryRef\":\"Sum(raw_data.BugID)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"r\",\"Entity\":\"raw_data\"}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"r\"}},\"Property\":\"TeamName\"},\"Name\":\"raw_data.TeamName\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"r\"}},\"Property\":\"BugID\"}},\"Function\":3},\"Name\":\"Sum(raw_data.BugID)\"}]}}}"
+        },
+        {
+          "id": 5,
+          "x": 470,
+          "y": 270,
+          "width": 450,
+          "height": 200,
+          "z": 1004,
+          "config": "{\"name\":\"module-bar\",\"layouts\":[{\"id\":0,\"position\":{\"x\":470,\"y\":270,\"z\":1004,\"width\":450,\"height\":200}}],\"singleVisual\":{\"visualType\":\"barChart\",\"projections\":{\"Category\":[{\"queryRef\":\"raw_data.ModuleName\"}],\"Values\":[{\"queryRef\":\"Sum(raw_data.BugID)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"r\",\"Entity\":\"raw_data\"}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"r\"}},\"Property\":\"ModuleName\"},\"Name\":\"raw_data.ModuleName\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"r\"}},\"Property\":\"BugID\"}},\"Function\":3},\"Name\":\"Sum(raw_data.BugID)\"}]}}}"
+        },
+        {
+          "id": 6,
+          "x": 10,
+          "y": 480,
+          "width": 910,
+          "height": 220,
+          "z": 1005,
+          "config": "{\"name\":\"trend-line\",\"layouts\":[{\"id\":0,\"position\":{\"x\":10,\"y\":480,\"z\":1005,\"width\":910,\"height\":220}}],\"singleVisual\":{\"visualType\":\"lineChart\",\"projections\":{\"Category\":[{\"queryRef\":\"raw_data.SprintName\"}],\"Values\":[{\"queryRef\":\"Sum(raw_data.BugID)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"r\",\"Entity\":\"raw_data\"}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"r\"}},\"Property\":\"SprintName\"},\"Name\":\"raw_data.SprintName\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"r\"}},\"Property\":\"BugID\"}},\"Function\":3},\"Name\":\"Sum(raw_data.BugID)\"}]}}}"
+        }
+      ],
+      "filters": "[]"
+    }
+  ]
+}

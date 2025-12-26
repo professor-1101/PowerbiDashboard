@@ -1,0 +1,141 @@
+{
+  "name": "SemanticModel",
+  "compatibilityLevel": 1567,
+  "model": {
+    "culture": "en-US",
+    "dataAccessOptions": {
+      "legacyRedirects": true,
+      "returnErrorValuesAsNull": true
+    },
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "sourceQueryCulture": "en-US",
+    "tables": [
+      {
+        "name": "raw_data",
+        "columns": [
+          {"name": "BugID", "dataType": "int64", "sourceColumn": "BugID"},
+          {"name": "Title", "dataType": "string", "sourceColumn": "Title"},
+          {"name": "Severity", "dataType": "string", "sourceColumn": "Severity"},
+          {"name": "Priority", "dataType": "string", "sourceColumn": "Priority"},
+          {"name": "State", "dataType": "string", "sourceColumn": "State"},
+          {"name": "Category", "dataType": "string", "sourceColumn": "Category"},
+          {"name": "ModuleName", "dataType": "string", "sourceColumn": "ModuleName"},
+          {"name": "ProjectName", "dataType": "string", "sourceColumn": "ProjectName"},
+          {"name": "TeamName", "dataType": "string", "sourceColumn": "TeamName"},
+          {"name": "SprintName", "dataType": "string", "sourceColumn": "SprintName"},
+          {"name": "AssigneeName", "dataType": "string", "sourceColumn": "AssigneeName"},
+          {"name": "ReporterName", "dataType": "string", "sourceColumn": "ReporterName"},
+          {"name": "CreatedDate", "dataType": "dateTime", "sourceColumn": "CreatedDate"},
+          {"name": "ClosedDate", "dataType": "dateTime", "sourceColumn": "ClosedDate"},
+          {"name": "LeadTimeHrs", "dataType": "double", "sourceColumn": "LeadTimeHrs"},
+          {"name": "CycleTimeHrs", "dataType": "double", "sourceColumn": "CycleTimeHrs"},
+          {"name": "AgeDays", "dataType": "int64", "sourceColumn": "AgeDays"},
+          {"name": "ReopenCount", "dataType": "int64", "sourceColumn": "ReopenCount"},
+          {"name": "CloseReason", "dataType": "string", "sourceColumn": "CloseReason"},
+          {"name": "Resolution", "dataType": "string", "sourceColumn": "Resolution"},
+          {"name": "RootCause", "dataType": "string", "sourceColumn": "RootCause"},
+          {"name": "is_regression", "dataType": "int64", "sourceColumn": "is_regression"},
+          {"name": "is_escaped", "dataType": "int64", "sourceColumn": "is_escaped"}
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Excel.Workbook(File.Contents(\"BugTracking_Complete.xlsx\"), null, true),",
+                "    raw_data_Sheet = Source{[Item=\"raw_data\",Kind=\"Sheet\"]}[Data],",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(raw_data_Sheet, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{",
+                "        {\"BugID\", Int64.Type},",
+                "        {\"Title\", type text},",
+                "        {\"Severity\", type text},",
+                "        {\"Priority\", type text},",
+                "        {\"State\", type text},",
+                "        {\"Category\", type text},",
+                "        {\"ModuleName\", type text},",
+                "        {\"ProjectName\", type text},",
+                "        {\"TeamName\", type text},",
+                "        {\"SprintName\", type text},",
+                "        {\"AssigneeName\", type text},",
+                "        {\"ReporterName\", type text},",
+                "        {\"CreatedDate\", type datetime},",
+                "        {\"ClosedDate\", type datetime},",
+                "        {\"LeadTimeHrs\", type number},",
+                "        {\"CycleTimeHrs\", type number},",
+                "        {\"AgeDays\", Int64.Type},",
+                "        {\"ReopenCount\", Int64.Type},",
+                "        {\"CloseReason\", type text},",
+                "        {\"Resolution\", type text},",
+                "        {\"RootCause\", type text},",
+                "        {\"is_regression\", Int64.Type},",
+                "        {\"is_escaped\", Int64.Type}",
+                "    })",
+                "in",
+                "    #\"Changed Type\""
+              ]
+            }
+          }
+        ],
+        "measures": [
+          {
+            "name": "Total Bugs",
+            "expression": "COUNTROWS(raw_data)"
+          },
+          {
+            "name": "Open Bugs",
+            "expression": "CALCULATE(COUNTROWS(raw_data), raw_data[State] IN {\"Open\", \"New\", \"Active\"})"
+          },
+          {
+            "name": "Closed Bugs",
+            "expression": "CALCULATE(COUNTROWS(raw_data), raw_data[State] IN {\"Closed\", \"Resolved\", \"Done\"})"
+          },
+          {
+            "name": "Avg Lead Time (Days)",
+            "expression": "AVERAGE(raw_data[LeadTimeHrs]) / 24",
+            "formatString": "0.00"
+          },
+          {
+            "name": "Avg Cycle Time (Days)",
+            "expression": "AVERAGE(raw_data[CycleTimeHrs]) / 24",
+            "formatString": "0.00"
+          },
+          {
+            "name": "Critical Bugs",
+            "expression": "CALCULATE(COUNTROWS(raw_data), raw_data[Severity] = \"Critical\")"
+          },
+          {
+            "name": "High Severity Bugs",
+            "expression": "CALCULATE(COUNTROWS(raw_data), raw_data[Severity] = \"High\")"
+          },
+          {
+            "name": "Escaped Bugs",
+            "expression": "CALCULATE(COUNTROWS(raw_data), raw_data[is_escaped] = 1)"
+          },
+          {
+            "name": "Regression Bugs",
+            "expression": "CALCULATE(COUNTROWS(raw_data), raw_data[is_regression] = 1)"
+          },
+          {
+            "name": "Escape Rate %",
+            "expression": "DIVIDE([Escaped Bugs], [Total Bugs], 0) * 100",
+            "formatString": "0.00\"%\""
+          },
+          {
+            "name": "Reopen Rate %",
+            "expression": "DIVIDE(CALCULATE(COUNTROWS(raw_data), raw_data[ReopenCount] > 0), [Total Bugs], 0) * 100",
+            "formatString": "0.00\"%\""
+          }
+        ]
+      }
+    ],
+    "annotations": [
+      {
+        "name": "PBI_QueryOrder",
+        "value": "[\"raw_data\"]"
+      }
+    ]
+  }
+}

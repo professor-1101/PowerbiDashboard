@@ -1,0 +1,13 @@
+{
+  "diagramLayout": {
+    "nodes": [
+      {
+        "name": "raw_data",
+        "x": 100,
+        "y": 100,
+        "width": 200,
+        "height": 400
+      }
+    ]
+  }
+}
